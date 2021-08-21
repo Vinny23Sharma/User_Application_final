@@ -1,5 +1,6 @@
 import boto3
 from flask_restful import Resource, reqparse
+from code.model.user import UserModel
 
 dynamodb_connector = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 user_table_instance = dynamodb_connector.Table('users')
@@ -24,23 +25,7 @@ class User(Resource):
         username = data.get('username')
         password = data.get('password')
 
-        user = user_table_instance.put_item(
-                Item={
-                    "username": username,
-                    "password": password,
-
-                    "Mobile_No_1": 0,
-                    "Mobile_No_2": 0,
-                    "Landline": 0,
-                    "Company_email_address": "NULL",
-                    "Personal_email_address": "NULL",
-                    "Work_address": "NULL",
-                    "Emergency_contact_1": 0,
-                    "Emergency_contact_2": 0,
-                    "Current_address": "NULL",
-                    "Permanent_address": "NULL"
-                }
-            )
+        user = UserModel.post_user(username,password)
 
         if user:
             return {"status": "User created successfully"}, 200
@@ -54,11 +39,7 @@ class User(Resource):
         username = data.get('username')
         password = data.get('password')
 
-        user = user_table_instance.get_item(
-            Key={
-                'username': username,
-            }
-        )
+        user = UserModel.get_user(username)
 
         if user and str(user.get('Item')['password']) == password:
             return {"username": user.get('Item')['username'], "password": user.get('Item')['password']}, 200

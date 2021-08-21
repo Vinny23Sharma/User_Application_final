@@ -1,28 +1,37 @@
 import boto3
+
+
 # Get the service resource.
-dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-# Create the DynamoDB table.
-table = dynamodb.create_table(
-    TableName='users',
-    KeySchema=[
-        {
-            'AttributeName': 'username',
-            'KeyType': 'HASH'
-        }
-    ],
-    AttributeDefinitions=[
-        {
-            'AttributeName': 'username',
-            'AttributeType': 'S'
-        },
-    ],
-    ProvisionedThroughput={
-        'ReadCapacityUnits': 5,
-        'WriteCapacityUnits': 5
-    }
-)
+class UserModel:
+    dynamodb_connector = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+    user_table_instance = dynamodb_connector.Table('users')
 
-# Wait until the table exists.
-table.meta.client.get_waiter('table_exists').wait(TableName='users')
+    def post_user(self, username, password):
+        user = self.user_table_instance.put_item(
+            Item={
+                "username": username,
+                "password": password,
 
+                "Mobile_No_1": 0,
+                "Mobile_No_2": 0,
+                "Landline": 0,
+                "Company_email_address": "NULL",
+                "Personal_email_address": "NULL",
+                "Work_address": "NULL",
+                "Emergency_contact_1": 0,
+                "Emergency_contact_2": 0,
+                "Current_address": "NULL",
+                "Permanent_address": "NULL"
+            }
+        )
+
+        return user
+
+    def get_user(self, username):
+        user = self.user_table_instance.get_item(
+            Key={
+                'username': username,
+            }
+        )
+        return user
