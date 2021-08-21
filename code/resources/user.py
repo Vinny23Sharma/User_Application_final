@@ -1,12 +1,8 @@
-import boto3
 from flask_restful import Resource, reqparse
 from code.model.user import UserModel
 
-dynamodb_connector = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
-user_table_instance = dynamodb_connector.Table('users')
 
-
-# User class to sign in and sign up the user. It is for user registeration mainly
+# User class to sign in and sign up the user. It is for user registration mainly
 class User(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('username',
