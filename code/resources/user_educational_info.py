@@ -1,10 +1,8 @@
-from flask_restful import Resource, reqparse
 import boto3
+from flask_restful import Resource, reqparse
 
-from code.model import user_educational_info
 dynamodb_connector = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 user_table_instance = dynamodb_connector.Table('users')
-
 
 """
 1.	Mobile_No_1 :Number
@@ -88,11 +86,11 @@ class User_educational_info(Resource):
                              Personal_email_address=:pe, Work_address=:wa, Emergency_contact_1:=ec1,
                              Emergency_contact_2:=ec2, Current_address:=ca, Permanent_address:=pa
                              """
-                             ,
+            ,
             ExpressionAttributeValues={
                 ':m1': data['Mobile_No_1'],
                 ':m2': data['Mobile_No_2'],
-                ':l':  data['Landline'],
+                ':l': data['Landline'],
                 ':e1': data['Company_email_address'],
                 ':pe': data['Personal_email_address'],
                 ':wa': data['Work_address'],
@@ -105,15 +103,8 @@ class User_educational_info(Resource):
         )
         return response
 
-
-
-
-
     def get(self, username):
         pass
 
     def put(self, username):
         pass
-
-
-

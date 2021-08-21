@@ -26,6 +26,6 @@ def create_table():
             }
         )
 
-    except dynamodb.exceptions.ResourceInUseException:
+    except:
         print("Table Exists")
         pass
