@@ -20,22 +20,22 @@ class User(Resource):
                         help="This field cannot be left blank"
                         )
 
-    def post(self):
-        data = User.parser.parse_args()
+    @classmethod
+    def post(cls):
+        data = cls.parser.parse_args()
         username = data.get('username')
         password = data.get('password')
 
-        user = UserModel.post_user(username,password)
+        user = UserModel.post_user(username, password)
 
         if user:
             return {"status": "User created successfully"}, 200
         else:
             return {"status": "Unable to create the user"}, 400
 
-
-
-    def get(self):
-        data = User.parser.parse_args()
+    @classmethod
+    def get(cls):
+        data = cls.parser.parse_args()
         username = data.get('username')
         password = data.get('password')
 

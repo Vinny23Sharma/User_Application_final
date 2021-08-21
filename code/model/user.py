@@ -7,9 +7,9 @@ class UserModel:
     dynamodb_connector = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
     user_table_instance = dynamodb_connector.Table('users')
 
-    @staticmethod
-    def post_user(username, password):
-        user = UserModel.user_table_instance.put_item(
+    @classmethod
+    def post_user(cls, username, password):
+        user = cls.user_table_instance.put_item(
             Item={
                 "username": username,
                 "password": password,
@@ -29,9 +29,9 @@ class UserModel:
 
         return user
 
-    @staticmethod
-    def get_user(username):
-        user = UserModel.user_table_instance.get_item(
+    @classmethod
+    def get_user(cls, username):
+        user = cls.user_table_instance.get_item(
             Key={
                 'username': username,
             }
