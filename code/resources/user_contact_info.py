@@ -71,16 +71,17 @@ class User_contact_info(Resource):
             user = UserContactModel.get_user_contact(username)
             data = user.get('Item')
 
-            if data.get('Personal_email_address') != 'NULL':
+
+            if data.get('Personal_email_address'):
                 return {
-                           'Mobile_No_1': data['Mobile_No_1'],
-                           'Mobile_No_2': data['Mobile_No_2'],
-                           'Landline': data['Landline'],
+                           'Mobile_No_1': int(data['Mobile_No_1']),
+                           'Mobile_No_2': int(data['Mobile_No_2']),
+                           'Landline': int(data['Landline']),
                            'Company_email_address': data['Company_email_address'],
                            'Personal_email_address': data['Personal_email_address'],
                            'Work_address': data['Work_address'],
-                           'Emergency_contact_1': data['Emergency_contact_1'],
-                           ':Emergency_contact_2': data['Emergency_contact_2'],
+                           'Emergency_contact_1': int(data['Emergency_contact_1']),
+                           ':Emergency_contact_2': int(data['Emergency_contact_2']),
                            'Current_address': data['Current_address'],
                            'Permanent_address': data['Permanent_address']
                        }, 200

@@ -13,17 +13,6 @@ class UserModel:
             Item={
                 "username": username,
                 "password": password,
-
-                "Mobile_No_1": 0,
-                "Mobile_No_2": 0,
-                "Landline": 0,
-                "Company_email_address": "NULL",
-                "Personal_email_address": "NULL",
-                "Work_address": "NULL",
-                "Emergency_contact_1": 0,
-                "Emergency_contact_2": 0,
-                "Current_address": "NULL",
-                "Permanent_address": "NULL"
             }
         )
 

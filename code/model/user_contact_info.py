@@ -14,8 +14,8 @@ class UserContactModel:
                 "username": username,
             },
             UpdateExpression="""set Mobile_No_1=:m1, Mobile_No_2=:m2, Landline=:l, Company_email_address=:e1, 
-                                                 Personal_email_address=:pe, Work_address=:wa, Emergency_contact_1:=ec1,
-                                                 Emergency_contact_2:=ec2, Current_address:=ca, Permanent_address:=pa
+                                                 Personal_email_address=:pe, Work_address=:wa, Emergency_contact_1=:ec1,
+                                                 Emergency_contact_2=:ec2, Current_address=:ca, Permanent_address=:pa
                                                  """,
             ExpressionAttributeValues={
                 ':m1': data['Mobile_No_1'],
