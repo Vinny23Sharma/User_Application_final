@@ -35,11 +35,11 @@ class User(Resource):
         username = data.get('username')
         password = data.get('password')
 
-        user = UserModel.get_user(username)
+        user = UserModel.get_user(username).get('Item')
 
-        if user and str(user.get('Item')['password']) == password:
-            return {"username": user.get('Item')['username'], "password": user.get('Item')['password']}, 200
-        elif user and user.get('Item')['password'] != password:
+        if user and str(user['password']) == password:
+            return {"username": user['username'], "password": user['password']}, 200
+        elif user and user['password'] != password:
             return {"status": "Wrong Credentials"}, 404
         else:
             return {"status": "Unable to get the user"}, 500

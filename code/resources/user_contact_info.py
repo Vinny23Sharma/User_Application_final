@@ -67,23 +67,26 @@ class User_contact_info(Resource):
 
     @classmethod
     def get(cls, username):
-        user = UserContactModel.get_user_contact(username)
-        data = user.get('Item')
+        try:
+            user = UserContactModel.get_user_contact(username)
+            data = user.get('Item')
 
-        if user:
-            return {
-                       'Mobile_No_1': data['Mobile_No_1'],
-                       'Mobile_No_2': data['Mobile_No_2'],
-                       'Landline': data['Landline'],
-                       'Company_email_address': data['Company_email_address'],
-                       'Personal_email_address': data['Personal_email_address'],
-                       'Work_address': data['Work_address'],
-                       'Emergency_contact_1': data['Emergency_contact_1'],
-                       ':Emergency_contact_2': data['Emergency_contact_2'],
-                       'Current_address': data['Current_address'],
-                       'Permanent_address': data['Permanent_address']
-                   }, 200
-        else:
+            if data.get('Personal_email_address') != 'NULL':
+                return {
+                           'Mobile_No_1': data['Mobile_No_1'],
+                           'Mobile_No_2': data['Mobile_No_2'],
+                           'Landline': data['Landline'],
+                           'Company_email_address': data['Company_email_address'],
+                           'Personal_email_address': data['Personal_email_address'],
+                           'Work_address': data['Work_address'],
+                           'Emergency_contact_1': data['Emergency_contact_1'],
+                           ':Emergency_contact_2': data['Emergency_contact_2'],
+                           'Current_address': data['Current_address'],
+                           'Permanent_address': data['Permanent_address']
+                       }, 200
+            else:
+                return {"status": "Unable to get the user contact info"}, 500
+        except:
             return {"status": "Unable to get the user contact info"}, 500
 
     @classmethod
