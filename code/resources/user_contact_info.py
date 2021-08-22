@@ -71,7 +71,6 @@ class User_contact_info(Resource):
             user = UserContactModel.get_user_contact(username)
             data = user.get('Item')
 
-
             if data.get('Personal_email_address'):
                 return {
                            'Mobile_No_1': int(data['Mobile_No_1']),

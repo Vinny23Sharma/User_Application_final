@@ -1,15 +1,12 @@
-import boto3
+from code.settings import user_table_instance
 
 
 # Get the service resource.
 
 class UserContactModel:
-    dynamodb_connector = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
-    user_table_instance = dynamodb_connector.Table('users')
-
     @classmethod
     def put_user_contact(cls, username, data):
-        user = cls.user_table_instance.update_item(
+        user = user_table_instance.update_item(
             Key={
                 "username": username,
             },
@@ -36,7 +33,7 @@ class UserContactModel:
 
     @classmethod
     def get_user_contact(cls, username):
-        user = cls.user_table_instance.get_item(
+        user = user_table_instance.get_item(
             Key={
                 'username': username,
             }
