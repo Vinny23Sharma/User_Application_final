@@ -87,7 +87,7 @@ class UserPersonalInfoResource(Resource):
 
             else:
                 return {"status": "Unable to get the user personal info"}, 500
-        except Exception:
+        except:
             return {"status": "Unable to get the user personal info"}, 500
 
     @classmethod

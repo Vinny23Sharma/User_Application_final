@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse
 from code.model.user_contact_info import UserContactModel
 
 
-class User_contact_info(Resource):
+class UserContactInfo(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('Mobile_No_1',
                         type=int,

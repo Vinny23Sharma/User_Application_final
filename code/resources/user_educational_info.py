@@ -66,9 +66,9 @@ class UserEducationalInfoResource(Resource):
         user = UserEducationalInfo.put_user_educational_info(username, data)
 
         if user:
-            return {"status": "User contact info created successfully"}, 200
+            return {"status": "User educational info created successfully"}, 200
         else:
-            return {"status": "Unable to create the user contact info"}, 400
+            return {"status": "Unable to create the user educational info"}, 400
 
     @classmethod
     def get(cls, username):
@@ -93,9 +93,9 @@ class UserEducationalInfoResource(Resource):
 
                        }, 200
             else:
-                return {"status": "Unable to get the user contact info"}, 500
+                return {"status": "Unable to get the user educational info"}, 500
         except:
-            return {"status": "Unable to get the user contact info"}, 500
+            return {"status": "Unable to get the user educational info"}, 500
 
     @classmethod
     def put(cls, username):
@@ -103,6 +103,6 @@ class UserEducationalInfoResource(Resource):
         user = UserEducationalInfo.put_user_educational_info(username, data)
 
         if user:
-            return {"status": "User contact info created successfully"}, 200
+            return {"status": "User educational info created successfully"}, 200
         else:
-            return {"status": "Unable to create the user contact info"}, 400
+            return {"status": "Unable to create the user educational info"}, 400
