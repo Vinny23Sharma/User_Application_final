@@ -1,12 +1,10 @@
-import boto3
+from settings import dynamodb_connector
 
 
 def create_table():
-    dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
-
     # Create the DynamoDB table.
     try:
-        dynamodb.create_table(
+        dynamodb_connector.create_table(
             TableName='users',
             KeySchema=[
                 {
