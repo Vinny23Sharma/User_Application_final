@@ -12,8 +12,8 @@ app = FlaskLambda(__name__)
 api = Api(app)
 
 api.add_resource(User, '/user')
-api.add_resource(User_personal_info, '/user/personal_info/<string:username>')
-api.add_resource(User_educational_info, '/user/educational_info/<string:username>')
+api.add_resource(UserPersonalInfoResource, '/user/personal_info/<string:username>')
+api.add_resource(UserEducationalInfoResource, '/user/educational_info/<string:username>')
 api.add_resource(User_contact_info, '/user/contact_info/<string:username>')
 
 db.create_table()
