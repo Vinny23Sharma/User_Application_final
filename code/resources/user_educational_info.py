@@ -1,68 +1,12 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
+from flask import request
 from code.model.user_educational_info import UserEducationalInfo
 
 
 class UserEducationalInfoResource(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('TenthSchoolName',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('TenthBoard',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('TenthPercentage',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('TenthPassingYear',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('TwelfthSchoolName',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('TwelfthBoard',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('TwelfthPercentage',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('TwelfthPassingYear',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('GraduatingUniversityName',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('GraduationPercentage',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('GraduationPassOutYear',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-
     @classmethod
     def post(cls, username):
-        data = cls.parser.parse_args()
+        data = request.get_json()
         user = UserEducationalInfo.put_user_educational_info(username, data)
 
         if user:
@@ -99,7 +43,7 @@ class UserEducationalInfoResource(Resource):
 
     @classmethod
     def put(cls, username):
-        data = cls.parser.parse_args()
+        data = request.get_json()
         user = UserEducationalInfo.put_user_educational_info(username, data)
 
         if user:
