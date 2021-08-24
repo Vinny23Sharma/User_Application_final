@@ -1,9 +1,0 @@
-*.pyc
-.idea/
-__pycache__/
-code/__pycache__/
-*.db
-.DS_Store
-venv/
-code/*.pyc
-code/.idea/

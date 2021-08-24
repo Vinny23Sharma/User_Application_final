@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api
-from resources.user import User
+from resources.user import UserRegister
+from resources.user import UserLogin
 from flask_lambda import FlaskLambda
 from flask_jwt import JWT
 from flask_cors import CORS
@@ -17,10 +18,11 @@ app.config['SECRET_KEY'] = 'secret1234dynamodbapplication'
 api = Api(app)
 jwt = JWT(app, authenticate, identity)
 
-api.add_resource(User, '/user')
+api.add_resource(UserRegister, '/user')
+api.add_resource(UserLogin, '/user/{username}')
 api.add_resource(UserPersonalInfoResource, '/user/personal_info/<string:username>')
 api.add_resource(UserEducationalInfoResource, '/user/educational_info/<string:username>')
 api.add_resource(UserContactInfo, '/user/contact_info/<string:username>')
 
-# db.create_table()
-# app.run(port=5001)
+db.create_table()
+app.run(port=5001)
