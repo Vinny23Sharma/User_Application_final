@@ -8,5 +8,5 @@ def authenticate(username, password):
 
 
 def identity(payload):
-    username = payload['identity']
+    username = payload.get('username')
     return UserModel.get_user(username)

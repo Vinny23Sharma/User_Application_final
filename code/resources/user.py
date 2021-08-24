@@ -1,25 +1,18 @@
+from flask_jwt import jwt_required, current_identity
 from flask_restful import Resource, reqparse
-
+from flask import request
 from code.model.user import UserModel
 
 
 # User class to sign in and sign up the user. It is for user registration mainly
 class UserRegister(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('username',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('password',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-
     @classmethod
     def post(cls):
-        data = cls.parser.parse_args()
+        data = request.get_json()
+
+        if data is None:
+            return {'message': 'insufficient arguments'}, 400
+
         username = data.get('username')
         password = data.get('password')
 
@@ -32,24 +25,18 @@ class UserRegister(Resource):
 
 
 class UserLogin(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('username',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('password',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-
     @classmethod
-    def post(cls, username):
+    @jwt_required()
+    def post(cls):
+        data = request.get_json()
 
-        user_authentication_data = cls.parser.parse_args()
+        if data is None or current_identity is None:
+            return {'message': 'insufficient arguments'}, 400
+
+        username = data.get('username')
+        password = data.get('password')
         user = UserModel.get_user(username).get('Item')
-        if user and str(user['password']) == user_authentication_data.get("password"):
-            return {"username": user['username'], "password": user['password']}, 200
+        if user and str(user.get('password')) == password:
+            return {"username": user.get('username'), "password": user.get('password')}, 200
         else:
             return {"status": "Unable to get the user. Wrong credentials"}, 500
