@@ -1,5 +1,5 @@
-from flask_jwt import jwt_required
 from flask_restful import Resource, reqparse
+
 from code.model.user import UserModel
 
 
@@ -45,12 +45,11 @@ class UserLogin(Resource):
                         )
 
     @classmethod
-    @jwt_required
-    def get(cls, username):
+    def post(cls, username):
 
+        user_authentication_data = cls.parser.parse_args()
         user = UserModel.get_user(username).get('Item')
-
-        if user:
+        if user and str(user['password']) == user_authentication_data.get("password"):
             return {"username": user['username'], "password": user['password']}, 200
         else:
-            return {"status": "Unable to get the user"}, 500
+            return {"status": "Unable to get the user. Wrong credentials"}, 500
