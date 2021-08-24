@@ -1,63 +1,13 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
+from flask import request
 from code.model.user_contact_info import UserContactModel
 
 
 class UserContactInfo(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('Mobile_No_1',
-                        type=int,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('Mobile_No_2',
-                        type=int,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('Landline',
-                        type=int,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('Company_email_address',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('Personal_email_address',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('Permanent_address',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('Current_address',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('Work_address',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('Emergency_contact_1',
-                        type=int,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('Emergency_contact_2',
-                        type=int,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
 
     @classmethod
     def post(cls, username):
-        data = cls.parser.parse_args()
+        data = request.get_json()
         user = UserContactModel.put_user_contact(username, data)
 
         if user:
@@ -91,10 +41,11 @@ class UserContactInfo(Resource):
 
     @classmethod
     def put(cls, username):
-        data = cls.parser.parse_args()
+        data = request.get_json()
         user = UserContactModel.put_user_contact(username, data)
 
         if user:
             return {"status": "User contact info created successfully"}, 200
         else:
             return {"status": "Unable to create the user contact info"}, 400
+
