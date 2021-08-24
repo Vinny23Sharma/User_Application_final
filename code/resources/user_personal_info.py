@@ -1,63 +1,13 @@
 from flask_restful import Resource, reqparse
+from flask import request
 from code.model.user_personal_info import UserPersonalInfo
 
 
 class UserPersonalInfoResource(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('FirstName',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('LastName',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('MotherName',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('FatherName',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('DateOfBirth',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('Gender',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('BloodGroup',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('MaritalStatus',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-    parser.add_argument('Occupation',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank!"
-                        )
-    parser.add_argument('Nationality',
-                        type=str,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-
     @classmethod
     def post(cls, username):
-        data = cls.parser.parse_args()
+        data = request.get_json()
+        print(data)
         user = UserPersonalInfo.put_user_personal_info(username, data)
 
         if user:
@@ -92,7 +42,7 @@ class UserPersonalInfoResource(Resource):
 
     @classmethod
     def put(cls, username):
-        data = cls.parser.parse_args()
+        data = request.get_json()
         user = UserPersonalInfo.put_user_personal_info(username, data)
 
         if user:
