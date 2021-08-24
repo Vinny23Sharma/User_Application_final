@@ -7,7 +7,7 @@ class UserPersonalInfoResource(Resource):
     @classmethod
     def post(cls, username):
         data = request.get_json()
-        print(data)
+
         user = UserPersonalInfo.put_user_personal_info(username, data)
 
         if user:
