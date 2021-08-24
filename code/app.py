@@ -3,7 +3,6 @@ from flask_restful import Api
 from resources.user import UserRegister
 from resources.user import UserLogin
 from flask_lambda import FlaskLambda
-from flask_jwt import JWT
 from flask_cors import CORS
 from resources.user_personal_info import UserPersonalInfoResource
 from resources.user_contact_info import UserContactInfo
@@ -12,14 +11,12 @@ from security import authenticate, identity
 
 import db
 
-
 app = FlaskLambda(__name__)
-app.config['SECRET_KEY'] = 'secret1234dynamodbapplication'
 api = Api(app)
-jwt = JWT(app, authenticate, identity)
+
 
 api.add_resource(UserRegister, '/user')
-api.add_resource(UserLogin, '/user/{username}')
+api.add_resource(UserLogin, '/user/<string:username>')
 api.add_resource(UserPersonalInfoResource, '/user/personal_info/<string:username>')
 api.add_resource(UserEducationalInfoResource, '/user/educational_info/<string:username>')
 api.add_resource(UserContactInfo, '/user/contact_info/<string:username>')
