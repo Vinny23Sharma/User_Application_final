@@ -33,16 +33,16 @@ class UserContactInfo(Resource):
 
             if data.get('Personal_email_address'):
                 return {
-                           'Mobile_No_1': int(data['Mobile_No_1']),
-                           'Mobile_No_2': int(data['Mobile_No_2']),
-                           'Landline': int(data['Landline']),
-                           'Company_email_address': data['Company_email_address'],
-                           'Personal_email_address': data['Personal_email_address'],
-                           'Work_address': data['Work_address'],
-                           'Emergency_contact_1': int(data['Emergency_contact_1']),
-                           ':Emergency_contact_2': int(data['Emergency_contact_2']),
-                           'Current_address': data['Current_address'],
-                           'Permanent_address': data['Permanent_address']
+                           'Mobile_No_1': int(data.get('Mobile_No_1')),
+                           'Mobile_No_2': int(data.get('Mobile_No_2')),
+                           'Landline': int(data.get('Landline')),
+                           'Company_email_address': data.get('Company_email_address'),
+                           'Personal_email_address': data.get('Personal_email_address'),
+                           'Work_address': data.get('Work_address'),
+                           'Emergency_contact_1': int(data.get('Emergency_contact_1')),
+                           ':Emergency_contact_2': int(data.get('Emergency_contact_2')),
+                           'Current_address': data.get('Current_address'),
+                           'Permanent_address': data.get('Permanent_address')
                        }, 200
             else:
                 return {"status": "Unable to get the user contact info"}, 500
