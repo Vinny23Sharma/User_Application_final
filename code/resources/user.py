@@ -37,6 +37,6 @@ class UserLogin(Resource):
         password = data.get('password')
         user = UserModel.get_user(username).get('Item')
         if user and str(user.get('password')) == password:
-            return {"username": user.get('username'), "password": user.get('password')}, 200
+            return {"status": '{} successfully logged in.'.format(user.get('username'))}, 200
         else:
             return {"status": "Unable to get the user. Wrong credentials"}, 500
