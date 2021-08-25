@@ -20,7 +20,8 @@ class UserEducationalInfo:
                 TwelfthPassingYear=:twelfth_passing_year,
                 GraduatingUniversityName=:graduating_university_name,
                 GraduationPercentage=:graduation_percentage,
-                GraduationPassOutYear=:graduation_pass_out_year
+                GraduationPassOutYear=:graduation_pass_out_year,
+                GraduationSpecialization=:graduation_specialization
             """,
             ExpressionAttributeValues={
                 ':tenth_school_name': data.get('TenthSchoolName'),
@@ -33,7 +34,9 @@ class UserEducationalInfo:
                 ':twelfth_passing_year': data.get('TwelfthPassingYear'),
                 ':graduating_university_name': data.get('GraduatingUniversityName'),
                 ':graduation_percentage': data.get('GraduationPercentage'),
-                ':graduation_pass_out_year': data.get('GraduationPassOutYear')
+                ':graduation_pass_out_year': data.get('GraduationPassOutYear'),
+                ':graduation_specialization': data.get('GraduationSpecialization')
+
             },
             ReturnValues="UPDATED_NEW"
         )

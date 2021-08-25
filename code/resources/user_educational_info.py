@@ -40,7 +40,8 @@ class UserEducationalInfoResource(Resource):
                            'TwelfthPassingYear': data.get('TwelfthPassingYear'),
                            'GraduatingUniversityName': data.get('GraduatingUniversityName'),
                            'GraduationPercentage': data.get('GraduationPercentage'),
-                           'GraduationPassOutYear': data.get('GraduationPassOutYear')
+                           'GraduationPassOutYear': data.get('GraduationPassOutYear'),
+                           'GraduationSpecialization': data.get('GraduationSpecialization')
 
                        }, 200
             else:
