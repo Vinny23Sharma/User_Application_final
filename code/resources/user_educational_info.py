@@ -11,14 +11,14 @@ class UserEducationalInfoResource(Resource):
         data = request.get_json()
 
         if data is None or current_identity is None:
-            return {'message': 'insufficient arguments'}, 400
+            return {'message': 'insufficient arguments, 404'}
 
         user = UserEducationalInfo.put_user_educational_info(username, data)
 
         if user:
             return {"status": "User educational info created successfully"}, 200
         else:
-            return {"status": "Unable to create the user educational info"}, 400
+            return {"status": "404"}
 
     @classmethod
     @jwt_required()
@@ -45,9 +45,9 @@ class UserEducationalInfoResource(Resource):
 
                        }, 200
             else:
-                return {"status": "Unable to get the user educational info"}, 500
+                return {"status": "404"}
         except:
-            return {"status": "Unable to get the user educational info"}, 500
+            return {"status": "404"}
 
     @classmethod
     @jwt_required()
@@ -58,4 +58,4 @@ class UserEducationalInfoResource(Resource):
         if user:
             return {"status": "User educational info created successfully"}, 200
         else:
-            return {"status": "Unable to create the user educational info"}, 400
+            return {"status": "404"}
