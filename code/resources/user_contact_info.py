@@ -40,7 +40,7 @@ class UserContactInfo(Resource):
                            'Personal_email_address': data.get('Personal_email_address'),
                            'Work_address': data.get('Work_address'),
                            'Emergency_contact_1': int(data.get('Emergency_contact_1')),
-                           ':Emergency_contact_2': int(data.get('Emergency_contact_2')),
+                           'Emergency_contact_2': int(data.get('Emergency_contact_2')),
                            'Current_address': data.get('Current_address'),
                            'Permanent_address': data.get('Permanent_address')
                        }, 200
