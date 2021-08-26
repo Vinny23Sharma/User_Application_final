@@ -1,6 +1,6 @@
 import re
 
-
+#For validating personal info
 class PersonalInfoValidator:
     allowed_fields = ["FirstName",
                       "LastName",
