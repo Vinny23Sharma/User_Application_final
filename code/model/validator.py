@@ -1,6 +1,7 @@
 import re
 
-#For validating personal info
+
+# For validating personal info
 class PersonalInfoValidator:
     allowed_fields = ["FirstName",
                       "LastName",
@@ -98,3 +99,111 @@ class PersonalInfoValidator:
         return True
 
 
+# For validating educational info
+class EducationalInfoValidator:
+    allowed_fields = [
+        "TenthSchoolName",
+        "TenthBoard",
+        "TenthPercentage",
+        "TenthPassingYear",
+        "TwelfthSchoolName",
+        "TwelfthBoard",
+        "TwelfthPercentage",
+        "TwelfthPassingYear",
+        "GraduatingUniversityName",
+        "GraduationPercentage",
+        "GraduationPassOutYear",
+        "GraduationSpecialization"
+    ]
+    allowed_fields.sort()
+
+    @classmethod
+    def name_field_values_validator(cls, value_to_check):
+        value = value_to_check.replace(" ", "")
+        value = value.replace(".", "")
+        return value.isalpha()
+
+    @classmethod
+    def percentage_validator(cls, value_to_check):
+        regex_percentage = "\\d+(?:\\.\\d+)?%"
+        return re.fullmatch(regex_percentage, value_to_check)
+
+    @classmethod
+    def year_validator(cls, value_to_check):
+        regex_year = "^\d{4}$"
+        return re.fullmatch(regex_year, value_to_check)
+
+    # For validating values
+    @classmethod
+    def value_validator(cls, request_data_values):
+        check = True
+
+        if request_data_values.get("TenthSchoolName"):
+            if not cls.name_field_values_validator("TenthSchoolName"):
+                check = False
+                return check
+
+        if request_data_values.get("TenthBoard"):
+            if not cls.name_field_values_validator("TenthBoard"):
+                check = False
+                return check
+        if request_data_values.get("TwelfthSchoolName"):
+            if not cls.name_field_values_validator("TwelfthSchoolName"):
+                check = False
+                return check
+
+        if request_data_values.get("TwelfthBoard"):
+            if not cls.name_field_values_validator("TwelfthBoard"):
+                check = False
+                return check
+
+        if request_data_values.get("GraduatingUniversityName"):
+            if not cls.name_field_values_validator("GraduatingUniversityName"):
+                check = False
+                return check
+        if request_data_values.get("GraduationSpecialization"):
+            if not cls.name_field_values_validator("GraduationSpecialization"):
+                check = False
+                return check
+        if request_data_values.get("TenthPassingYear"):
+            if not cls.year_validator("TenthPassingYear"):
+                check = False
+                return check
+
+        if request_data_values.get("TwelfthPassingYear"):
+            if not cls.year_validator("TwelfthPassingYear"):
+                check = False
+                return check
+        if request_data_values.get("GraduationPassOutYear"):
+            if not cls.year_validator("GraduationPassOutYear"):
+                check = False
+                return check
+        if request_data_values.get("TwelfthPercentage"):
+            if not cls.year_validator("TwelfthPercentage"):
+                check = False
+                return check
+        if request_data_values.get("TenthPercentage"):
+            if not cls.year_validator("TenthPercentage"):
+                check = False
+                return check
+
+        if request_data_values.get("GraduationPercentage"):
+            if not cls.year_validator("GraduationPercentage"):
+                check = False
+                return check
+        return check
+
+    # For validating keys
+    @classmethod
+    def field_validator(cls, request_data):
+        # validation on length
+        if len(request_data) != 12:
+            return False
+
+        key_list = list(request_data.keys())
+        key_list.sort()
+
+        if key_list != cls.allowed_fields:
+            return False
+
+        return True

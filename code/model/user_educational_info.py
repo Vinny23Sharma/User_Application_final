@@ -1,10 +1,21 @@
 from code.settings import user_table_instance
+from validator import EducationalInfoValidator
 
 
 class UserEducationalInfo:
 
     @classmethod
     def put_user_educational_info(cls, username, data):
+        if not EducationalInfoValidator.field_validator(data):
+            return {"message": "Invalid fields",
+                    "status": "404"
+                    }
+
+        if not EducationalInfoValidator.value_validator(data):
+            return {"message": "Invalid values",
+                    "status": "404"
+                    }
+
         user = user_table_instance.update_item(
             Key={
                 "username": username,
