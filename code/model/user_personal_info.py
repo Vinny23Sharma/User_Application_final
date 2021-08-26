@@ -1,9 +1,20 @@
 from code.settings import user_table_instance
+from validator import PersonalInfoValidator
 
 
 class UserPersonalInfo:
     @classmethod
     def put_user_personal_info(cls, username, data):
+        if not PersonalInfoValidator.field_validator(data):
+            return {"message": "Invalid keys",
+                    "status": "404"
+                    }
+
+        if not PersonalInfoValidator.value_validator(data):
+            return {"message": "Invalid values",
+                    "status": "404"
+                    }
+
         user = user_table_instance.update_item(
             Key={
                 "username": username,
