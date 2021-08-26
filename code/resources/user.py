@@ -1,6 +1,8 @@
 from flask_jwt import jwt_required, current_identity
 from flask_restful import Resource
 from flask import request
+
+from code.key_generator import Keys
 from code.model.user import UserModel
 
 
@@ -39,7 +41,7 @@ class UserLogin(Resource):
         username = data.get('username')
         password = data.get('password')
         user = UserModel.get_user(username).get('Item')
-        if user and str(user.get('password')) == password:
+        if user and (Keys.decrypt_message(user.get("password").encode("utf-8")).decode("utf-8")) == password:
             return {"status": '{} successfully logged in.'.format(user.get('username'))}, 200
         else:
             return {"status": "Unable to get the user. Wrong credentials"}, 500
