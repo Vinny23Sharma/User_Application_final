@@ -1,11 +1,21 @@
 from code.settings import user_table_instance
-
+from validator import ContactInfoValidator
 
 # Get the service resource.
 
 class UserContactModel:
     @classmethod
     def put_user_contact(cls, username, data):
+        if not ContactInfoValidator.field_validator(data):
+            return {"message": "Invalid fields",
+                    "status": "404"
+                    }
+
+        if not ContactInfoValidator.val(data):
+            return {"message": "Invalid values",
+                    "status": "404"
+                    }
+
         user = user_table_instance.update_item(
             Key={
                 "username": username,
