@@ -1,5 +1,5 @@
 from flask_jwt import jwt_required, current_identity
-from flask_restful import Resource, reqparse
+from flask_restful import Resource
 from flask import request
 from code.model.user import UserModel
 
@@ -15,6 +15,9 @@ class UserRegister(Resource):
 
         username = data.get('username')
         password = data.get('password')
+
+        if UserModel.get_user(username):
+            return {"message": "user already exists"}
 
         user = UserModel.post_user(username, password)
 
