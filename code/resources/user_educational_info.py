@@ -16,9 +16,9 @@ class UserEducationalInfoResource(Resource):
         user = UserEducationalInfo.put_user_educational_info(username, data)
 
         if user:
-            return {"status": "User educational info created successfully"}, 200
+            return {"status": "User educational info created successfully, 200"}
         else:
-            return {"status": "404"}
+            return {"status": "Unable to create the user educational information, 404"}
 
     @classmethod
     @jwt_required()
@@ -45,9 +45,9 @@ class UserEducationalInfoResource(Resource):
 
                        }, 200
             else:
-                return {"status": "404"}
+                return {"status": "Unable to get user educational info, 404"}
         except:
-            return {"status": "404"}
+            return {"status": "Unable to get user educational info, 404"}
 
     @classmethod
     @jwt_required()
@@ -58,4 +58,4 @@ class UserEducationalInfoResource(Resource):
         if user:
             return {"status": "User educational info created successfully"}, 200
         else:
-            return {"status": "404"}
+            return {"status": "Unable to create user educational info, 404"}
