@@ -16,7 +16,7 @@ class UserRegister(Resource):
         username = data.get('username')
         password = data.get('password')
 
-        if UserModel.get_user(username):
+        if UserModel.get_user(username).get('Item'):
             return {"message": "user already exists"}
 
         user = UserModel.post_user(username, password)
