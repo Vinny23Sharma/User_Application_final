@@ -15,6 +15,9 @@ class UserEducationalInfoResource(Resource):
 
         user = UserEducationalInfo.put_user_educational_info(username, data)
 
+        if user.get("status") == "404":
+            return user
+
         if user:
             return {"status": "User educational info created successfully, 200"}
         else:

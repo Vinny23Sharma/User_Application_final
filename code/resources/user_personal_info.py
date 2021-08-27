@@ -14,6 +14,8 @@ class UserPersonalInfoResource(Resource):
             return {'message': 'insufficient arguments, {}'.format(400)}
 
         user = UserPersonalInfo.put_user_personal_info(username, data)
+        if user.get("status") == "404":
+            return user
 
         if user:
             return {"status": "User personal info created successfully, {}".format(200)}

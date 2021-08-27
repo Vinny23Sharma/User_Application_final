@@ -15,6 +15,8 @@ class UserContactInfo(Resource):
             return {'message': 'insufficient arguments'}, 400
 
         user = UserContactModel.put_user_contact(username, data)
+        if user.get("status") == "404":
+            return user
 
         if user:
             return {"status": "User contact info created successfully"}, 200
