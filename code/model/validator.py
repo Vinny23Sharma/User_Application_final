@@ -126,8 +126,8 @@ class EducationalInfoValidator:
 
     @classmethod
     def percentage_validator(cls, value_to_check):
-        regex_percentage = "\\d+(?:\\.\\d+)?%"
-        return re.fullmatch(regex_percentage, value_to_check)
+        value_to_check = value_to_check.replace(".", "")
+        return value_to_check.isdigit()
 
     @classmethod
     def year_validator(cls, value_to_check):
