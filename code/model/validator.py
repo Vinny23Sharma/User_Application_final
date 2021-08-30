@@ -74,7 +74,7 @@ class PersonalInfoValidator:
                 return check
 
         if request_data_value_dict.get("DateOfBirth"):
-            regex_dob = "^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d$"
+            regex_dob = "((?:19|20)[0-9][0-9])-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])"
             if not re.fullmatch(regex_dob, request_data_value_dict.get("DateOfBirth")):
                 check = False
                 return check
